@@ -12,6 +12,7 @@ export class GroupData {
     this.textFilter = "";
     this.textFilters = [""];
     this.playerFilter = "@ALL";
+    this.showUntradable = true;
   }
 
   update(groupData) {
@@ -159,10 +160,17 @@ export class GroupData {
     return playerFilter === "@ALL" || item.quantities[playerFilter] === undefined || item.quantities[playerFilter] > 0;
   }
 
-  shouldItemBeVisible(item, textFilters, playerFilter) {
+  passesUntradableFilter(item, showUntradable) {
+    if (showUntradable) return true;
+    return item.gePrice > 0;
+  }
+
+  shouldItemBeVisible(item, textFilters, playerFilter, showUntradable = this.showUntradable) {
     if (!item || !item.quantities) return false;
 
-    return this.passesTextFilter(item, textFilters) && this.passesPlayerFilter(item, playerFilter);
+    return this.passesTextFilter(item, textFilters) && 
+           this.passesPlayerFilter(item, playerFilter) && 
+           this.passesUntradableFilter(item, showUntradable);
   }
 
   applyTextFilter(textFilter) {
@@ -180,6 +188,14 @@ export class GroupData {
     const items = Object.values(this.groupItems);
     for (const item of items) {
       item.visible = this.shouldItemBeVisible(item, this.textFilters, playerFilter);
+    }
+  }
+
+  applyUntradableFilter(showUntradable) {
+    this.showUntradable = showUntradable;
+    const items = Object.values(this.groupItems);
+    for (const item of items) {
+      item.visible = this.shouldItemBeVisible(item, this.textFilters, this.playerFilter, showUntradable);
     }
   }
 

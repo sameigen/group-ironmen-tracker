@@ -21,11 +21,14 @@ export class InventoryPager extends BaseElement {
     this.searchElement = document.querySelector(".items-page__search");
     this.showIndividualPricesInput = document.querySelector("#items-page__individual-items");
     this.showIndividualPrices = this.showIndividualPricesInput.checked;
+    this.showUntradableInput = document.querySelector("#items-page__show-untradable");
+    this.showUntradable = this.showUntradableInput.checked;
     this.playerFilter = document.querySelector(".items-page__player-filter");
     this.eventListener(this.searchElement, "input", this.handleSearch.bind(this));
     this.eventListener(this.sortTarget, "change", this.handleSortChange.bind(this));
     this.eventListener(this, "click", this.handleClick.bind(this));
     this.eventListener(this.showIndividualPricesInput, "change", this.handleIndividualPricesChange.bind(this));
+    this.eventListener(this.showUntradableInput, "change", this.handleShowUntradableChange.bind(this));
     this.eventListener(this.playerFilter, "change", this.handlePlayerFilterChange.bind(this));
     this.subscribe("items-updated", this.handleUpdatedItems.bind(this));
 
@@ -60,6 +63,13 @@ export class InventoryPager extends BaseElement {
 
   handleIndividualPricesChange() {
     this.showIndividualPrices = this.showIndividualPricesInput.checked;
+    this.maybeRenderPage(this.currentPage, true);
+    this.render();
+  }
+
+  handleShowUntradableChange() {
+    this.showUntradable = this.showUntradableInput.checked;
+    groupData.applyUntradableFilter(this.showUntradable);
     this.maybeRenderPage(this.currentPage, true);
     this.render();
   }
