@@ -1,3 +1,4 @@
+//comment to trigger deploy
 mod auth_middleware;
 mod authed;
 mod config;
@@ -15,6 +16,7 @@ use crate::collection_log::CollectionLogInfo;
 use actix_cors::Cors;
 use actix_web::{http::header, middleware, web, App, HttpServer};
 use tokio_postgres::NoTls;
+
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {

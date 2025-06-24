@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   group-ironmen-tracker-frontend:
-    image: chrisleeeee/group-ironmen-tracker-frontend
+    image: sameig/gim-fe
     environment:
       - HOST_URL=${HOST_URL}
     restart: always
@@ -12,7 +12,7 @@ services:
     # build:
       # context: ./server
       # dockerfile: Dockerfile
-    image: chrisleeeee/group-ironmen-tracker-backend
+    image: sameig/gim-be
     environment:
       - PG_USER=${PG_USER}
       - PG_PASSWORD=${PG_PASSWORD}
