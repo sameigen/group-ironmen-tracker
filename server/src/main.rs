@@ -74,7 +74,7 @@ async fn main() -> std::io::Result<()> {
             .service(authed_scope)
             .service(unauthed_scope)
     })
-    .bind(("0.0.0.0", 8080))?
+    .bind(("0.0.0.0", 8081))?
     .run()
     .await
 }
