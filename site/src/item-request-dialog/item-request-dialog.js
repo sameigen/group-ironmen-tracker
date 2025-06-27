@@ -1,4 +1,5 @@
 import { BaseElement } from "../base-element/base-element";
+import { groupData } from "../data/group-data";
 
 export class ItemRequestDialog extends BaseElement {
   constructor() {
@@ -7,6 +8,7 @@ export class ItemRequestDialog extends BaseElement {
     this.memberQuantities = null;
     this.onConfirm = null;
     this.onCancel = null;
+    this.preselectedRequester = null;
   }
 
   html() {
@@ -24,14 +26,18 @@ export class ItemRequestDialog extends BaseElement {
     this.eventListener(this.querySelector(".dialog-box"), "click", (e) => e.stopPropagation());
     
     const quantityInput = this.querySelector(".quantity-input");
-    this.eventListener(quantityInput, "input", () => this.updateQuantityValidation());
+    this.eventListener(quantityInput, "input", () => this.updateValidation());
+    
+    const requesterSelect = this.querySelector(".requester-select");
+    this.eventListener(requesterSelect, "change", () => this.updateValidation());
   }
 
-  show(item, memberQuantities, onConfirm, onCancel) {
+  show(item, memberQuantities, onConfirm, onCancel, preselectedRequester = null) {
     this.item = item;
     this.memberQuantities = memberQuantities;
     this.onConfirm = onConfirm;
     this.onCancel = onCancel;
+    this.preselectedRequester = preselectedRequester;
 
     // Render the dialog first
     this.render();
@@ -64,6 +70,22 @@ export class ItemRequestDialog extends BaseElement {
     const itemNameEl = this.querySelector(".item-name");
     itemNameEl.textContent = this.item.name;
 
+    // Populate requester dropdown
+    const requesterSelect = this.querySelector(".requester-select");
+    requesterSelect.innerHTML = '<option value="">Select your name...</option>';
+    
+    // Get all members from groupData
+    const members = Array.from(groupData.members.values());
+    members.forEach(member => {
+      const option = document.createElement("option");
+      option.value = member.name;
+      option.textContent = member.name;
+      if (this.preselectedRequester === member.name) {
+        option.selected = true;
+      }
+      requesterSelect.appendChild(option);
+    });
+
     const holdersListEl = this.querySelector(".holders-list");
     holdersListEl.innerHTML = "";
 
@@ -73,7 +95,7 @@ export class ItemRequestDialog extends BaseElement {
 
     if (maxAvailable === 0) {
       holdersListEl.innerHTML = '<div class="no-holders">No one has this item</div>';
-      this.querySelector(".confirm-button").disabled = true;
+      this.updateValidation();
       return;
     }
 
@@ -89,26 +111,29 @@ export class ItemRequestDialog extends BaseElement {
     const quantityInput = this.querySelector(".quantity-input");
     quantityInput.max = maxAvailable;
     quantityInput.value = 1;
-    this.updateQuantityValidation();
+    this.updateValidation();
   }
 
-  updateQuantityValidation() {
+  updateValidation() {
     const quantityInput = this.querySelector(".quantity-input");
+    const requesterSelect = this.querySelector(".requester-select");
     const confirmButton = this.querySelector(".confirm-button");
     const value = parseInt(quantityInput.value) || 0;
     const max = parseInt(quantityInput.max) || 0;
     
-    confirmButton.disabled = value <= 0 || value > max;
+    confirmButton.disabled = value <= 0 || value > max || !requesterSelect.value;
   }
 
   resetForm() {
     this.querySelector(".quantity-input").value = 1;
     this.querySelector(".note-input").value = "";
+    this.querySelector(".requester-select").value = "";
   }
 
   handleConfirm() {
     const quantity = parseInt(this.querySelector(".quantity-input").value) || 1;
     const note = this.querySelector(".note-input").value.trim();
+    const requesterName = this.querySelector(".requester-select").value;
     
     if (this.onConfirm) {
       this.onConfirm({
@@ -117,6 +142,7 @@ export class ItemRequestDialog extends BaseElement {
         quantity,
         note: note || undefined,
         member_quantities: this.memberQuantities,
+        requester_name: requesterName,
       });
     }
     this.hide();

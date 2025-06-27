@@ -112,15 +112,13 @@ export class InventoryItem extends BaseElement {
       (requestData) => {
         this.sendItemRequest(requestData);
       },
-      () => {}
+      () => {},
+      this.playerFilter && this.playerFilter !== "@ALL" ? this.playerFilter : null
     );
   }
 
   async sendItemRequest(requestData) {
     const { api } = await import("../data/api.js");
-    
-    // Add the requester name (current player filter)
-    requestData.requester_name = this.playerFilter;
     
     try {
       await api.requestItem(requestData);

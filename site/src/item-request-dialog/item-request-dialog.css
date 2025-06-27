@@ -69,6 +69,33 @@
   color: var(--text-primary);
 }
 
+.requester-section {
+  margin-bottom: 20px;
+}
+
+.requester-label {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.requester-select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  font-family: "rssmall", Arial, sans-serif;
+}
+
+.requester-select:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+
 .holders-section {
   margin-bottom: 20px;
 }
@@ -152,8 +179,6 @@
   background-color: var(--bg-primary);
   color: var(--text-primary);
   font-size: 0.9rem;
-  resize: vertical;
-  min-height: 60px;
 }
 
 .note-input:focus {
@@ -169,34 +194,8 @@
   border-top: 1px solid var(--border-color);
 }
 
-.cancel-button,
-.confirm-button {
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
 .cancel-button {
-  background-color: transparent;
-  color: var(--text-secondary);
-  border: 1px solid var(--border-color);
-}
-
-.cancel-button:hover {
-  background-color: var(--bg-primary);
-}
-
-.confirm-button {
-  background-color: var(--accent-color);
-  color: white;
-}
-
-.confirm-button:hover:not(:disabled) {
-  background-color: var(--accent-hover);
+  margin-right: 8px;
 }
 
 .confirm-button:disabled {

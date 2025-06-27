@@ -9,6 +9,13 @@
         <div class="item-name"></div>
       </div>
       
+      <div class="requester-section">
+        <label for="requester" class="requester-label">I am:</label>
+        <select id="requester" class="requester-select">
+          <option value="">Select your name...</option>
+        </select>
+      </div>
+      
       <div class="holders-section">
         <div class="holders-label">Current holders:</div>
         <div class="holders-list"></div>
@@ -21,12 +28,12 @@
       
       <div class="note-section">
         <label for="note" class="note-label">Note (optional):</label>
-        <textarea id="note" class="note-input" placeholder="Why do you need this item?" rows="3"></textarea>
+        <input type="text" id="note" class="note-input" placeholder="Why do you need this item?" />
       </div>
     </div>
     <div class="dialog-actions">
-      <button class="cancel-button">Cancel</button>
-      <button class="confirm-button">Send Request</button>
+      <button class="cancel-button men-button">Cancel</button>
+      <button class="confirm-button men-button">Send Request</button>
     </div>
   </div>
 </div>
