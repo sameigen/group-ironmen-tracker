@@ -14,6 +14,15 @@
 
   --rsbackground: url(/ui/297-0.png);
   --rsbackground-dark: url(/ui/297-0-dark.png);
+  
+  /* Dialog variables */
+  --bg-primary: rgba(0, 0, 0, 0.9);
+  --bg-secondary: rgba(62, 53, 40, 0.95);
+  --text-primary: #fcfbfb;
+  --text-secondary: #aca095;
+  --border-color: #aca095;
+  --accent-color: #ff981f;
+  --accent-hover: #e68a00;
 }
 
 html,
