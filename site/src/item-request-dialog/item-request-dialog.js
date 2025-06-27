@@ -21,7 +21,7 @@ export class ItemRequestDialog extends BaseElement {
     this.eventListener(this.querySelector(".confirm-button"), "click", () => this.handleConfirm());
     this.eventListener(this.querySelector(".cancel-button"), "click", () => this.handleCancel());
     this.eventListener(this.querySelector(".dialog-backdrop"), "click", () => this.handleCancel());
-    this.eventListener(this.querySelector(".dialog"), "click", (e) => e.stopPropagation());
+    this.eventListener(this.querySelector(".dialog-box"), "click", (e) => e.stopPropagation());
     
     const quantityInput = this.querySelector(".quantity-input");
     this.eventListener(quantityInput, "input", () => this.updateQuantityValidation());

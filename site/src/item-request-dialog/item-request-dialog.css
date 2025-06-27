@@ -19,7 +19,7 @@
   visibility: visible;
 }
 
-.dialog {
+.dialog-box {
   background-color: var(--bg-secondary, #3e3528);
   border: 2px solid var(--border-color, #aca095);
   border-radius: 8px;
@@ -34,7 +34,7 @@
   z-index: 1001;
 }
 
-.dialog-backdrop--visible .dialog {
+.dialog-backdrop--visible .dialog-box {
   transform: scale(1);
 }
 
