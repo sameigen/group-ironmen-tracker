@@ -42,6 +42,28 @@ inventory-item.rendered {
   image-rendering: optimizequality;
 }
 
+.inventory-item__picture-container {
+  position: relative;
+}
+
+.inventory-item__request-button {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.inventory-item__request-button:hover {
+  background-color: var(--accent-hover);
+}
+
 .inventory-item__bottom {
   display: grid;
   grid-template-columns: 1fr 1fr 2fr;

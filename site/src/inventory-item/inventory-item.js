@@ -51,9 +51,26 @@ export class InventoryItem extends BaseElement {
       }
     }
 
+    const showRequestButton = this.shouldShowRequestButton();
+
     return `{{inventory-item.html}}`;
   }
   /* eslint-enable no-unused-vars */
+
+  shouldShowRequestButton() {
+    if (!this.playerFilter || this.playerFilter === "@ALL") {
+      return false;
+    }
+    
+    if (this.playerFilter === "@SHARED") {
+      return false;
+    }
+    
+    const hasOtherPlayerWithItem = Object.entries(this.item.quantities)
+      .some(([player, qty]) => player !== this.playerFilter && player !== "@SHARED" && qty > 0);
+    
+    return hasOtherPlayerWithItem;
+  }
 
   playerHtml(playerName) {
     const quantity = this.item.quantities[playerName];
@@ -72,6 +89,45 @@ export class InventoryItem extends BaseElement {
     this.item = item;
     this.render();
     this.classList.add("rendered");
+    this.setupRequestButton();
+  }
+
+  setupRequestButton() {
+    const requestButton = this.querySelector(".inventory-item__request-button");
+    if (requestButton) {
+      this.eventListener(requestButton, "click", this.handleRequestClick.bind(this));
+    }
+  }
+
+  handleRequestClick(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    
+    const dialog = document.querySelector("item-request-dialog");
+    const memberQuantities = this.item.quantities;
+    
+    dialog.show(
+      this.item,
+      memberQuantities,
+      (requestData) => {
+        this.sendItemRequest(requestData);
+      },
+      () => {}
+    );
+  }
+
+  async sendItemRequest(requestData) {
+    const { api } = await import("../data/api.js");
+    const { groupData } = await import("../data/group-data.js");
+    
+    // Add the requester name (current player filter)
+    requestData.requester_name = this.playerFilter;
+    
+    try {
+      await api.requestItem(requestData);
+    } catch (error) {
+      console.error("Failed to send item request:", error);
+    }
   }
 
   get quantity() {

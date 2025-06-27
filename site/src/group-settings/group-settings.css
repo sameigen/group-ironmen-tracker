@@ -15,3 +15,50 @@ group-settings {
 .group-settings__members edit-member {
   margin-bottom: 1em;
 }
+
+.group-settings__discord {
+  padding-left: 1em;
+}
+
+.group-settings__field {
+  margin-bottom: 1em;
+}
+
+.group-settings__field label {
+  display: block;
+  margin-bottom: 0.25em;
+}
+
+.group-settings__input {
+  width: 100%;
+  padding: 0.5em;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+}
+
+.group-settings__input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+
+.group-settings__help {
+  display: block;
+  margin-top: 0.25em;
+  font-size: 0.85em;
+  color: var(--text-secondary);
+}
+
+.group-settings__help a {
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+.group-settings__help a:hover {
+  text-decoration: underline;
+}
+
+.group-settings__save-webhook {
+  margin-top: 1em;
+}

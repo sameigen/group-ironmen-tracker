@@ -29,7 +29,9 @@ pub enum ApiError {
     GetCollectionLogError(tokio_postgres::error::Error),
     GroupFullError,
     ReqwestError(reqwest::Error),
-    GroupMemberValidationError(String)
+    GroupMemberValidationError(String),
+    #[from(ignore)]
+    WebhookError(String)
 }
 impl std::error::Error for ApiError {}
 fn handle_pg_error(err: &tokio_postgres::error::Error, name: &str) -> HttpResponse {
@@ -77,6 +79,10 @@ impl ResponseError for ApiError {
             ApiError::GroupMemberValidationError(ref reason) => {
                 log::error!("Validation error: {}", reason);
                 HttpResponse::BadRequest().body(reason.clone())
+            }
+            ApiError::WebhookError(ref reason) => {
+                log::error!("Webhook error: {}", reason);
+                HttpResponse::InternalServerError().body(format!("Webhook error: {}", reason))
             }
         }
     }

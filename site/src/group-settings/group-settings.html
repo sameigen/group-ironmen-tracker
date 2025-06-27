@@ -27,4 +27,30 @@
       <label for="style__dark">Dark</label>
     </div>
   </fieldset>
+
+  <h3>Discord Integration</h3>
+  <div class="group-settings__discord">
+    <div class="group-settings__field">
+      <label for="discord-webhook-url">Discord Webhook URL:</label>
+      <input 
+        id="discord-webhook-url" 
+        type="url" 
+        placeholder="https://discord.com/api/webhooks/..." 
+        class="group-settings__input"
+        value="${this.discordWebhookUrl || ''}"
+      />
+      <small class="group-settings__help">
+        <a href="https://support.discord.com/hc/en-us/articles/228383668" target="_blank">How to create a Discord webhook</a>
+      </small>
+    </div>
+    <div class="group-settings__field">
+      <input 
+        id="item-requests-enabled" 
+        type="checkbox" 
+        ${this.itemRequestsEnabled ? 'checked' : ''}
+      />
+      <label for="item-requests-enabled">Enable item request notifications</label>
+    </div>
+    <button class="group-settings__save-webhook men-button">Save Discord Settings</button>
+  </div>
 </div>

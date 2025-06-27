@@ -1137,6 +1137,23 @@ ORDER BY GREATEST(
         transaction.commit().await?;
     }
 
+    if !has_migration_run(client, "add_discord_webhook_settings").await? {
+        let transaction = client.transaction().await?;
+        transaction
+            .execute(
+                r#"
+ALTER TABLE groupironman.groups
+ADD COLUMN IF NOT EXISTS discord_webhook_url TEXT,
+ADD COLUMN IF NOT EXISTS item_requests_enabled BOOLEAN DEFAULT FALSE
+"#,
+                &[],
+            )
+            .await?;
+
+        commit_migration(&transaction, "add_discord_webhook_settings").await?;
+        transaction.commit().await?;
+    }
+
     {
         let transaction = client.transaction().await?;
 

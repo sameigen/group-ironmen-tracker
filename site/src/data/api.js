@@ -51,6 +51,14 @@ class Api {
     return `${this.baseUrl}/group/${this.groupName}/collection-log`;
   }
 
+  get requestItemUrl() {
+    return `${this.baseUrl}/group/${this.groupName}/request-item`;
+  }
+
+  get webhookSettingsUrl() {
+    return `${this.baseUrl}/group/${this.groupName}/webhook-settings`;
+  }
+
   setCredentials(groupName, groupToken) {
     this.groupName = groupName;
     this.groupToken = groupToken;
@@ -220,6 +228,54 @@ class Api {
       });
       return response.json();
     }
+  }
+
+  async requestItem(requestData) {
+    const response = await fetch(this.requestItemUrl, {
+      method: "POST",
+      headers: {
+        Authorization: this.groupToken,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestData),
+    });
+    
+    if (!response.ok) {
+      throw new Error(`Failed to send item request: ${response.statusText}`);
+    }
+    
+    return response.json();
+  }
+
+  async getWebhookSettings() {
+    const response = await fetch(this.webhookSettingsUrl, {
+      headers: {
+        Authorization: this.groupToken,
+      },
+    });
+    
+    if (!response.ok) {
+      throw new Error(`Failed to get webhook settings: ${response.statusText}`);
+    }
+    
+    return response.json();
+  }
+
+  async updateWebhookSettings(settings) {
+    const response = await fetch(this.webhookSettingsUrl, {
+      method: "PUT",
+      headers: {
+        Authorization: this.groupToken,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(settings),
+    });
+    
+    if (!response.ok) {
+      throw new Error(`Failed to update webhook settings: ${response.statusText}`);
+    }
+    
+    return response.json();
   }
 }
 

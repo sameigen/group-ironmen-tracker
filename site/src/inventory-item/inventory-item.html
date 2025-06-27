@@ -13,6 +13,7 @@
 
   <div class="inventory-item__picture-container">
     <img class="inventory-item__picture" src="${item.imageUrl}" width="63" height="56"/>
+    ${showRequestButton ? '<button class="inventory-item__request-button men-button">Request</button>' : ''}
   </div>
 </div>
 <div class="inventory-item__bottom">${playerHtml}</div>

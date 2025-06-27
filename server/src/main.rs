@@ -9,6 +9,7 @@ mod models;
 mod unauthed;
 mod validators;
 mod collection_log;
+mod discord_webhook;
 use crate::auth_middleware::AuthenticateMiddlewareFactory;
 use crate::config::Config;
 use crate::collection_log::CollectionLogInfo;
@@ -49,7 +50,10 @@ async fn main() -> std::io::Result<()> {
             .service(authed::am_i_logged_in)
             .service(authed::am_i_in_group)
             .service(authed::get_skill_data)
-            .service(authed::get_collection_log);
+            .service(authed::get_collection_log)
+            .service(authed::request_item)
+            .service(authed::get_webhook_settings)
+            .service(authed::update_webhook_settings);
         let json_config = web::JsonConfig::default().limit(100000);
         let cors = Cors::default()
             .allow_any_origin()
