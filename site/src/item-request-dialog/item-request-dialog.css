@@ -20,7 +20,8 @@
 }
 
 .dialog {
-  background-color: var(--bg-secondary);
+  background-color: var(--bg-secondary, #3e3528);
+  border: 2px solid var(--border-color, #aca095);
   border-radius: 8px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   width: 90%;
@@ -29,6 +30,8 @@
   overflow-y: auto;
   transform: scale(0.9);
   transition: transform 0.3s;
+  position: relative;
+  z-index: 1001;
 }
 
 .dialog-backdrop--visible .dialog {
