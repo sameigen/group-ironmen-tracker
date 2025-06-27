@@ -4,6 +4,15 @@
   --light-border: rgba(255, 255, 255, 0.12);
   --darken: rgba(0, 0, 0, 0.2);
   --background: #000000;
+  
+  /* Dialog CSS variables */
+  --bg-primary: #2e2619;
+  --bg-secondary: #3e3528;
+  --text-primary: #e8e6e3;
+  --text-secondary: #aca095;
+  --border-color: #aca095;
+  --accent-color: #ff9900;
+  --accent-hover: #ffaa22;
   --black: #000000;
   --invalid: #ee0d0d;
   --graph-grid-border: rgba(255, 255, 255, 0.05);

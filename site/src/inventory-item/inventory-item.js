@@ -118,7 +118,6 @@ export class InventoryItem extends BaseElement {
 
   async sendItemRequest(requestData) {
     const { api } = await import("../data/api.js");
-    const { groupData } = await import("../data/group-data.js");
     
     // Add the requester name (current player filter)
     requestData.requester_name = this.playerFilter;

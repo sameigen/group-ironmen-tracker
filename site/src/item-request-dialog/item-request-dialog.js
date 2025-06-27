@@ -15,7 +15,6 @@ export class ItemRequestDialog extends BaseElement {
 
   connectedCallback() {
     super.connectedCallback();
-    console.log("ItemRequestDialog connected");
   }
 
   setupEventListeners() {
@@ -29,7 +28,6 @@ export class ItemRequestDialog extends BaseElement {
   }
 
   show(item, memberQuantities, onConfirm, onCancel) {
-    console.log("ItemRequestDialog.show called with:", { item, memberQuantities });
     this.item = item;
     this.memberQuantities = memberQuantities;
     this.onConfirm = onConfirm;
@@ -37,7 +35,6 @@ export class ItemRequestDialog extends BaseElement {
 
     // Render the dialog first
     this.render();
-    console.log("ItemRequestDialog innerHTML after render:", this.innerHTML);
     
     // Setup event listeners after rendering
     this.setupEventListeners();
@@ -47,11 +44,8 @@ export class ItemRequestDialog extends BaseElement {
     
     // Finally show the backdrop
     const backdrop = this.querySelector(".dialog-backdrop");
-    console.log("Backdrop element:", backdrop);
     if (backdrop) {
       backdrop.classList.add("dialog-backdrop--visible");
-    } else {
-      console.error("No backdrop element found!");
     }
   }
 
